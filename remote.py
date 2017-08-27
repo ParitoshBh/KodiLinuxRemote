@@ -25,3 +25,4 @@ class Remote:
             labelStatus.set_text(currentPlaying)
         else:
             labelStatus.set_text('Unable to connect with Kodi')
+        return kodi
