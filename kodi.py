@@ -28,7 +28,10 @@ class Kodi():
     def Handshake(self):
         try:
             self.player_id = self.GetActivePlayers()
-            currentPlaying = self.PlayerGetItem()
+            if self.player_id is None:
+                currentPlaying = 'Nothing is playing'
+            else:
+                currentPlaying = self.PlayerGetItem()
             return currentPlaying
         except ConnectionError as conn_error:
             print(conn_error)
@@ -36,8 +39,12 @@ class Kodi():
 
     def GetActivePlayers(self):
         response = requests.get(self.url_helper.prepareUrl('Player.GetActivePlayers'), auth=(self.username, self.password))
-        response = response.json()
-        return response['result'][0]['playerid']
+        response = response.json()['result']
+        # check if something is playing
+        if len(response) == 0:
+            return None
+        else:
+            return response[0]['playerid']
 
     def PlayerGetItem(self):
         response = requests.get(self.url_helper.prepareUrl('Player.GetItem', self.player_id), auth=(self.username, self.password))
