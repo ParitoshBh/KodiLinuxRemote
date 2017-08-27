@@ -6,23 +6,24 @@ class Kodi():
     username = None
     password = None
     ip_address = None
-    port_number = None
+    port = None
 
-    def __init__(self, username, password, ip_address, port_number):
+    def __init__(self, username, password, ip_address, port):
         self.username = username
         self.password = password
         self.ip_address = ip_address
-        self.port_number = port_number
+        self.port = port
 
     def Connect(self):
         try:
-            response = requests.get('http://192.168.1.104:9000/jsonrpc', auth=(self.username, self.password))
+            response = requests.get('http://' + self.ip_address + ':' + self.port + '/jsonrpc', auth=(self.username, self.password))
             # print(response.json())
             settings = Settings()
-            settings.Save({'username' : self.username, 'password' : self.password})
+            settings.Save({'ip_address' : self.ip_address, 'port' : self.port, 'username' : self.username, 'password' : self.password})
+            return True
         except ConnectionError as conn_error:
-            response = 'Unable to connect'
-            print(response)
+            print(conn_error)
+            return False
 
     def GetActivePlayers(self):
         response = requests.get('http://192.168.1.104:9000/jsonrpc?request={"jsonrpc":"2.0","id":1,"method":"Player.GetActivePlayers"}', auth=('kodi', 'kodi'))

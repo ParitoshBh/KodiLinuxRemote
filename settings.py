@@ -14,12 +14,23 @@ class Settings():
         # check if settings path exists
         if os.path.exists(self.settings_path):
             # load settings from file
-            self.settings = self.LoadSettings(self.config)
+            settings = self.LoadSettings(self.config)
+            if settings is not None:
+                self.settings = settings
+            else:
+                self.initSettingsFile(data_dir)
         else:
-            # create the directory
+            self.initSettingsFile(data_dir)
+
+    def initSettingsFile(self, data_dir):
+        try:
+            # try to create the directory
             os.makedirs(data_dir)
+        except FileExistsError as file_error:
+            print('File already exists. Overwriting settings')
+        finally:
             # intialize .ini file with defaults
-            self.config['DEFAULT'] = {'username': '', 'password': '', 'ipaddress': '', 'port' : ''}
+            self.config['DEFAULT'] = {'username': '', 'password': '', 'ip_address': '', 'port' : ''}
             with open(self.settings_path, 'w') as settings_file:
                 self.config.write(settings_file)
 
@@ -30,6 +41,8 @@ class Settings():
             user_defined = self.config['user.defined']
             user_defined['username'] = userSettings['username']
             user_defined['password'] = userSettings['password']
+            user_defined['ip_address'] = userSettings['ip_address']
+            user_defined['port'] = userSettings['port']
             with open(self.settings_path, 'w') as settings_file:
                 self.config.write(settings_file)
 
@@ -38,7 +51,7 @@ class Settings():
         if 'user.defined' in config:
             return config['user.defined']
         else:
-            print('Unable to load user values')
+            print('Settings file found. Format corrupted.')
             return None
 
     def GetSettings(self):

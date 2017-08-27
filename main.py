@@ -1,7 +1,15 @@
-from kodi import Kodi
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
 from settings import Settings
 from remote import Remote
 from setup import Setup
+from eventhandler import EventHandler
+
+builder = Gtk.Builder()
+handler = EventHandler(builder)
+builder.add_from_file("view/remote.glade")
+builder.connect_signals(handler)
 
 settings = Settings()
 
@@ -9,15 +17,13 @@ settings = Settings()
 user_defined = settings.GetSettings()
 
 if user_defined is not None:
-    # self.kodi = Kodi(username, password, '', '')
-    # self.kodi.Connect()
-    # self.LoadRemote()
     remoteWin = Remote(user_defined)
-    remoteWin.load_window()
+    remoteWin.load_window(builder)
 else:
-    # self.LoadSetupInterface()
     setupWin = Setup()
-    setupWin.load_window()
+    setupWin.load_window(builder)
+
+Gtk.main()
 
 # class RemoteWindow:
 #     kodi = None
@@ -58,13 +64,6 @@ else:
 #         grid.attach(self.entry_PortNumber, 1, 1, 1, 1)
 #         grid.attach(button_Connect, 0, 2, 2, 1)
 
-#     def on_connect_clicked(self, widget):
-#         ip_address = self.entry_IPAddress.get_text()
-#         port_number = self.entry_PortNumber.get_text()
-#         # print(notes_file_path)
-#         kodi = Kodi('kodi', 'kodi', ip_address, port_number)
-#         kodi.Connect()
-
 #     def LoadRemote(self):
 #         # hbox = Gtk.Box(spacing=6)
 #         # self.add(hbox)
@@ -95,19 +94,3 @@ else:
 #             self.kodi.SetVolume("increase")
 #         if label == "Volume Decrease":
 #             self.kodi.SetVolume("decrease")
-
-
-# class Handler:
-#     builder = None
-
-#     def __init__(self, obj):
-#         self.builder = obj
-
-#     def onButtonClicked(self, button):
-#         # self.builder.add_from_file("view/remote.glade")
-#         builder.get_object("window2").hide()
-#         win = builder.get_object("window3")
-#         win.connect("delete-event", Gtk.main_quit)
-#         win.show()
-#         # window.hide()
-#         print("Hello World!")

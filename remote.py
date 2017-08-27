@@ -1,28 +1,15 @@
-import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
-
-class EventHandler:
-    def onConnectClicked(self):
-        print(self)
-
 class Remote:
+    ip_address = None
+    port = None
     username = None
     password = None
 
     def __init__(self, user_credentials):
+        self.ip_address = user_credentials['ip_address']
+        self.port = user_credentials['port']
         self.username = user_credentials['username']
         self.password = user_credentials['password']
 
-    def load_window(self):
-        builder = Gtk.Builder()
-        # handler = Handler(builder)
-        # builder.add_from_file("view/test.glade")
-        builder.add_from_file("view/remote.glade")
-        builder.connect_signals(EventHandler())
-
+    def load_window(self, builder):
         window = builder.get_object("windowRemote")
-        window.connect("delete-event", Gtk.main_quit)
         window.show()
-
-        Gtk.main()
