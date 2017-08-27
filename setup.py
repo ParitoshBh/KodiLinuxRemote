@@ -8,4 +8,5 @@ from eventhandler import EventHandler
 class Setup:
     def load_window(self, builder):
         window = builder.get_object("windowSetup")
+        window.set_title('Setup KodiLinuxRemote')
         window.show()
