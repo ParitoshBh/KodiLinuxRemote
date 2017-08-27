@@ -37,3 +37,21 @@ class EventHandler:
 
     def onBackClicked(self, button):
         self.kodi.InputBack()
+
+    def onMediaStopClicked(self, button):
+        pass
+
+    def onMediaPlayPauseClicked(self, button):
+        pass
+
+    def onMediaPreviousClicked(self, button):
+        pass
+
+    def onMediaRewindClicked(self, button):
+        pass
+
+    def onMediaNextClicked(self, button):
+        pass
+
+    def onMediaForwardClicked(self, button):
+        pass
