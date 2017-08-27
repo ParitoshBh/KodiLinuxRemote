@@ -1,3 +1,5 @@
+from kodi import Kodi
+
 class Remote:
     ip_address = None
     port = None
@@ -12,4 +14,14 @@ class Remote:
 
     def load_window(self, builder):
         window = builder.get_object("windowRemote")
+        window.set_title('KodiLinuxRemote')
         window.show()
+        # Communicate with kodi
+        labelStatus = builder.get_object('labelStatus')
+        labelStatus.set_text('Connecting with Kodi...')
+        kodi = Kodi(self.username, self.password, self.ip_address, self.port)
+        currentPlaying = kodi.Handshake()
+        if currentPlaying:
+            labelStatus.set_text(currentPlaying)
+        else:
+            labelStatus.set_text('Unable to connect with Kodi')
