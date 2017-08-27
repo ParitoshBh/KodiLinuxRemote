@@ -1,3 +1,6 @@
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
 from kodi import Kodi
 
 class Remote:
@@ -20,9 +23,26 @@ class Remote:
         labelStatus = builder.get_object('labelStatus')
         labelStatus.set_text('Connecting with Kodi...')
         kodi = Kodi(self.username, self.password, self.ip_address, self.port)
+        # Alter UI based on currently playing media
+        self.load_now_playing(kodi, builder)
+        return kodi
+
+    def load_now_playing(self, kodi, builder):
         currentPlaying = kodi.Handshake()
+        labelStatus = builder.get_object('labelStatus')
         if currentPlaying:
             labelStatus.set_text(currentPlaying)
         else:
             labelStatus.set_text('Unable to connect with Kodi')
-        return kodi
+        self.toggle_playback_button(builder, currentPlaying)
+
+    def toggle_playback_button(self, builder, currentPlaying):
+        buttonPlayPause = builder.get_object('buttonMediaPlayPause')
+        if currentPlaying:
+            if currentPlaying == 'Nothing is playing':
+                image = Gtk.Image(stock=Gtk.STOCK_MEDIA_PLAY)
+            else:
+                image = Gtk.Image(stock=Gtk.STOCK_MEDIA_PAUSE)
+        else:
+            image = Gtk.Image(stock=Gtk.STOCK_MEDIA_PLAY)
+        buttonPlayPause.set_image(image)
