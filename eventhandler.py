@@ -6,9 +6,13 @@ from remote import Remote
 
 class EventHandler:
     builder = None
+    kodi = None
 
     def __init__(self, builder):
         self.builder = builder
+
+    def initKodiObj(self, kodi):
+        self.kodi = kodi
 
     def onConnectClicked(self, button):
         ip_address = self.builder.get_object('entryIPAddress').get_text()
@@ -30,3 +34,6 @@ class EventHandler:
 
     def onDeleteClicked(self, button, args):
         Gtk.main_quit()
+
+    def onBackClicked(self, button):
+        self.kodi.InputBack()

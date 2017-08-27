@@ -1,20 +1,18 @@
 import requests
 from requests.exceptions import ConnectionError
 from settings import Settings
+from urlhelper import UrlHelper
 
 class Kodi():
-    protocol = 'http://'
+    player_id = None
     username = None
     password = None
-    ip_address = None
-    port = None
-    player_id = None
+    url_helper = None
 
     def __init__(self, username, password, ip_address, port):
+        self.url_helper = UrlHelper(ip_address, port)
         self.username = username
         self.password = password
-        self.ip_address = ip_address
-        self.port = port
 
     def Connect(self):
         try:
@@ -29,7 +27,6 @@ class Kodi():
 
     def Handshake(self):
         try:
-            # print(response.json())
             self.player_id = self.GetActivePlayers()
             currentPlaying = self.PlayerGetItem()
             return currentPlaying
@@ -38,14 +35,19 @@ class Kodi():
             return False
 
     def GetActivePlayers(self):
-        response = requests.get(self.protocol + self.ip_address + ':' + self.port + '/jsonrpc?request={"jsonrpc":"2.0","id": 1,"method":"Player.GetActivePlayers"}', auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepareUrl('Player.GetActivePlayers'), auth=(self.username, self.password))
         response = response.json()
         return response['result'][0]['playerid']
 
     def PlayerGetItem(self):
-        response = requests.get(self.protocol + self.ip_address + ':' + self.port + '/jsonrpc?request={"jsonrpc":"2.0","id": 1,"method":"Player.GetItem","params":{"playerid":' + str(self.player_id) + '}}', auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepareUrl('Player.GetItem', self.player_id), auth=(self.username, self.password))
         response = response.json()
         return response['result']['item']['label']
+
+    def InputBack(self):
+        response = requests.get(self.url_helper.prepareUrl('Input.Back'), auth=(self.username, self.password))
+        response = response.json()
+        print(response)
 
     def PlayPause(self):
         response = requests.get('http://192.168.1.104:9000/jsonrpc?request={"jsonrpc":"2.0","id":1,"method":"Player.PlayPause","params":{"playerid":1}}', auth=(self.username, self.password))
