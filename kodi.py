@@ -34,7 +34,7 @@ class Kodi():
                 currentPlaying = self.PlayerGetItem()
             return currentPlaying
         except ConnectionError as conn_error:
-            print(conn_error)
+            # print(conn_error)
             return False
 
     def GetActivePlayers(self):
@@ -53,6 +53,31 @@ class Kodi():
 
     def InputBack(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Back'), auth=(self.username, self.password))
+        response = response.json()
+        print(response)
+
+    def InputLeft(self):
+        response = requests.get(self.url_helper.prepareUrl('Input.Left'), auth=(self.username, self.password))
+        response = response.json()
+        print(response)
+
+    def InputRight(self):
+        response = requests.get(self.url_helper.prepareUrl('Input.Right'), auth=(self.username, self.password))
+        response = response.json()
+        print(response)
+
+    def InputSelect(self):
+        response = requests.get(self.url_helper.prepareUrl('Input.Select'), auth=(self.username, self.password))
+        response = response.json()
+        print(response)
+
+    def InputUp(self):
+        response = requests.get(self.url_helper.prepareUrl('Input.Up'), auth=(self.username, self.password))
+        response = response.json()
+        print(response)
+
+    def InputDown(self):
+        response = requests.get(self.url_helper.prepareUrl('Input.Down'), auth=(self.username, self.password))
         response = response.json()
         print(response)
 

@@ -123,6 +123,8 @@
             <property name="margin_bottom">10</property>
             <property name="hexpand">True</property>
             <property name="justify">center</property>
+            <property name="ellipsize">end</property>
+            <property name="single_line_mode">True</property>
             <property name="track_visited_links">False</property>
             <attributes>
               <attribute name="style" value="italic"/>
@@ -135,7 +137,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="buttonUp">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -144,6 +146,7 @@
             <property name="image">image1</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
+            <signal name="clicked" handler="onUpClicked" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">3</property>
@@ -151,7 +154,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="buttonDown">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -160,6 +163,7 @@
             <property name="image">image2</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
+            <signal name="clicked" handler="onDownClicked" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">3</property>
@@ -167,7 +171,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="buttonLeft">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -176,6 +180,7 @@
             <property name="image">image3</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
+            <signal name="clicked" handler="onLeftClicked" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">2</property>
@@ -183,7 +188,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="buttonRight">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -192,6 +197,7 @@
             <property name="image">image4</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
+            <signal name="clicked" handler="onRightClicked" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">4</property>
@@ -199,7 +205,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="buttonCenter">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -208,6 +214,7 @@
             <property name="image">image5</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
+            <signal name="clicked" handler="onCenterClicked" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">3</property>

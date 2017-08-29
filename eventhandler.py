@@ -38,6 +38,21 @@ class EventHandler:
     def onBackClicked(self, button):
         self.kodi.InputBack()
 
+    def onLeftClicked(self, button):
+        self.kodi.InputLeft()
+
+    def onRightClicked(self, button):
+        self.kodi.InputRight()
+
+    def onCenterClicked(self, button):
+        self.kodi.InputSelect()
+
+    def onUpClicked(self, button):
+        self.kodi.InputUp()
+
+    def onDownClicked(self, button):
+        self.kodi.InputDown()
+
     def onMediaStopClicked(self, button):
         pass
 
