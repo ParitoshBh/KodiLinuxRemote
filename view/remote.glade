@@ -82,7 +82,7 @@
         <property name="row_spacing">5</property>
         <property name="column_spacing">5</property>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="buttonVolumeIncrease">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -92,14 +92,15 @@
             <property name="image">image7</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
+            <signal name="clicked" handler="onVolumeIncreaseClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">4</property>
+            <property name="left_attach">3</property>
+            <property name="top_attach">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="buttonVolumeDecrease">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -109,10 +110,11 @@
             <property name="image">image8</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
+            <signal name="clicked" handler="onVolumeDecreaseClicked" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">1</property>
-            <property name="top_attach">5</property>
+            <property name="top_attach">2</property>
           </packing>
         </child>
         <child>
@@ -149,7 +151,7 @@
             <signal name="clicked" handler="onUpClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="left_attach">3</property>
+            <property name="left_attach">2</property>
             <property name="top_attach">4</property>
           </packing>
         </child>
@@ -166,7 +168,7 @@
             <signal name="clicked" handler="onDownClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="left_attach">3</property>
+            <property name="left_attach">2</property>
             <property name="top_attach">6</property>
           </packing>
         </child>
@@ -183,7 +185,7 @@
             <signal name="clicked" handler="onLeftClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="left_attach">2</property>
+            <property name="left_attach">1</property>
             <property name="top_attach">5</property>
           </packing>
         </child>
@@ -200,7 +202,7 @@
             <signal name="clicked" handler="onRightClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="left_attach">4</property>
+            <property name="left_attach">3</property>
             <property name="top_attach">5</property>
           </packing>
         </child>
@@ -217,12 +219,12 @@
             <signal name="clicked" handler="onCenterClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="left_attach">3</property>
+            <property name="left_attach">2</property>
             <property name="top_attach">5</property>
           </packing>
         </child>
         <child>
-          <object class="GtkToggleButton">
+          <object class="GtkToggleButton" id="buttonVolumeToggle">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -231,9 +233,10 @@
             <property name="image">image6</property>
             <property name="image_position">top</property>
             <property name="always_show_image">True</property>
+            <signal name="toggled" handler="onVolumeToggleClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="left_attach">1</property>
+            <property name="left_attach">2</property>
             <property name="top_attach">2</property>
           </packing>
         </child>
@@ -275,7 +278,7 @@
             <signal name="clicked" handler="onBackClicked" swapped="no"/>
           </object>
           <packing>
-            <property name="left_attach">2</property>
+            <property name="left_attach">1</property>
             <property name="top_attach">6</property>
           </packing>
         </child>

@@ -70,3 +70,12 @@ class EventHandler:
 
     def onMediaForwardClicked(self, button):
         pass
+
+    def onVolumeDecreaseClicked(self, button):
+        self.kodi.SetVolume('decrement')
+
+    def onVolumeIncreaseClicked(self, button):
+        self.kodi.SetVolume('increment')
+
+    def onVolumeToggleClicked(self, button):
+        pass

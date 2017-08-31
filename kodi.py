@@ -28,6 +28,7 @@ class Kodi():
     def Handshake(self):
         try:
             self.player_id = self.GetActivePlayers()
+            print(self.player_id)
             if self.player_id is None:
                 currentPlaying = 'Nothing is playing'
             else:
@@ -47,7 +48,7 @@ class Kodi():
             return response[0]['playerid']
 
     def PlayerGetItem(self):
-        response = requests.get(self.url_helper.prepareUrl('Player.GetItem', self.player_id), auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepareUrl('Player.GetItem', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
         response = response.json()
         return response['result']['item']['label']
 
@@ -82,10 +83,13 @@ class Kodi():
         print(response)
 
     def PlayPause(self):
-        response = requests.get('http://192.168.1.104:9000/jsonrpc?request={"jsonrpc":"2.0","id":1,"method":"Player.PlayPause","params":{"playerid":1}}', auth=(self.username, self.password))
+        # response = requests.get('http://192.168.1.104:9000/jsonrpc?request={"jsonrpc":"2.0","id":1,"method":"Player.PlayPause","params":{"playerid":1}}', auth=(self.username, self.password))
+        # response = requests.get(self.url_helper.prepareUrl('Player.PlayPause', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
+        # response = response.json()
+        # print(response)
+        pass
 
-    def SetVolume(self, type):
-        if type == 'increase':
-            response = requests.get('http://192.168.1.104:9000/jsonrpc?request={"jsonrpc":"2.0","id":1,"method":"Application.SetVolume","params":{"volume":"increment"}}', auth=(self.username, self.password))
-        else:
-            response = requests.get('http://192.168.1.104:9000/jsonrpc?request={"jsonrpc":"2.0","id":1,"method":"Application.SetVolume","params":{"volume":"decrement"}}', auth=(self.username, self.password))
+    def SetVolume(self, vol_type):
+        response = requests.get(self.url_helper.prepareUrl('Application.SetVolume', {'name': 'volume', 'value': vol_type}), auth=(self.username, self.password))
+        response = response.json()
+        print(response)
