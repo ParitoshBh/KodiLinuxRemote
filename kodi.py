@@ -11,13 +11,15 @@ class Kodi():
 
     def __init__(self, username, password, ip_address, port):
         self.url_helper = UrlHelper(ip_address, port)
+        self.ip_address = ip_address
+        self.port = port
         self.username = username
         self.password = password
 
     def Connect(self):
         try:
-            response = requests.get('http://' + self.ip_address + ':' + self.port + '/jsonrpc', auth=(self.username, self.password))
-            # print(response.json())
+            # TODO Save settings based on response
+            response = requests.get(self.url_helper.prepareUrl('Player.GetActivePlayers'), auth=(self.username, self.password))
             settings = Settings()
             settings.Save({'ip_address' : self.ip_address, 'port' : self.port, 'username' : self.username, 'password' : self.password})
             return True
