@@ -17,6 +17,6 @@ class UrlHelper:
             else:
                 url = '%s%s:%s%s"id":1,"method":"%s","params":{"%s":"%s"}}' % (self.protocol, self.ip_address, self.port, self.part, method_name, param['name'], param['value'])
 
-        print(url)
+        # print(url)
         
         return url

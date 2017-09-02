@@ -28,7 +28,7 @@ class Kodi():
     def Handshake(self):
         try:
             self.player_id = self.GetActivePlayers()
-            print(self.player_id)
+            # print(self.player_id)
             if self.player_id is None:
                 currentPlaying = 'Nothing is playing'
             else:
@@ -55,32 +55,32 @@ class Kodi():
     def InputBack(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Back'), auth=(self.username, self.password))
         response = response.json()
-        print(response)
+        # print(response)
 
     def InputLeft(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Left'), auth=(self.username, self.password))
         response = response.json()
-        print(response)
+        # print(response)
 
     def InputRight(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Right'), auth=(self.username, self.password))
         response = response.json()
-        print(response)
+        # print(response)
 
     def InputSelect(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Select'), auth=(self.username, self.password))
         response = response.json()
-        print(response)
+        # print(response)
 
     def InputUp(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Up'), auth=(self.username, self.password))
         response = response.json()
-        print(response)
+        # print(response)
 
     def InputDown(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Down'), auth=(self.username, self.password))
         response = response.json()
-        print(response)
+        # print(response)
 
     def PlayPause(self):
         # response = requests.get('http://192.168.1.104:9000/jsonrpc?request={"jsonrpc":"2.0","id":1,"method":"Player.PlayPause","params":{"playerid":1}}', auth=(self.username, self.password))
@@ -92,4 +92,4 @@ class Kodi():
     def SetVolume(self, vol_type):
         response = requests.get(self.url_helper.prepareUrl('Application.SetVolume', {'name': 'volume', 'value': vol_type}), auth=(self.username, self.password))
         response = response.json()
-        print(response)
+        # print(response)
