@@ -57,7 +57,7 @@ class EventHandler:
         pass
 
     def onMediaPlayPauseClicked(self, button):
-        pass
+        self.kodi.PlayPause()
 
     def onMediaPreviousClicked(self, button):
         pass
@@ -79,3 +79,36 @@ class EventHandler:
 
     def onVolumeToggleClicked(self, button):
         pass
+
+    def onKeyReleaseEvent(self, key, args):
+        key_code = args.get_keycode()[1]
+
+        # Backspace
+        if key_code is 22:
+            self.kodi.InputBack()
+        # Key left
+        elif key_code is 113:
+            self.kodi.InputLeft()
+        # Key right
+        elif key_code is 114:
+            self.kodi.InputRight()
+        # Key up
+        elif key_code is 111:
+            self.kodi.InputUp()
+        # Key down
+        elif key_code is 116:
+            self.kodi.InputDown()
+        # Enter
+        elif key_code is 36:
+            self.kodi.InputSelect()
+        # Plus key
+        elif key_code is 20:
+            self.kodi.SetVolume('decrement')
+        # Minus key
+        elif key_code is 21:
+            self.kodi.SetVolume('increment')
+        # Spacebar
+        elif key_code is 65:
+            self.kodi.PlayPause()
+        else:
+            print(key_code)

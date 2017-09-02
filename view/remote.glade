@@ -75,6 +75,7 @@
   <object class="GtkWindow" id="windowRemote">
     <property name="can_focus">False</property>
     <signal name="delete-event" handler="onDeleteClicked" swapped="no"/>
+    <signal name="key-release-event" handler="onKeyReleaseEvent" swapped="no"/>
     <child>
       <object class="GtkGrid">
         <property name="visible">True</property>
@@ -115,27 +116,6 @@
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="labelStatus">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_top">10</property>
-            <property name="margin_bottom">10</property>
-            <property name="hexpand">True</property>
-            <property name="justify">center</property>
-            <property name="ellipsize">end</property>
-            <property name="single_line_mode">True</property>
-            <property name="track_visited_links">False</property>
-            <attributes>
-              <attribute name="style" value="italic"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">0</property>
-            <property name="width">4</property>
           </packing>
         </child>
         <child>
@@ -383,6 +363,9 @@
             <property name="left_attach">5</property>
             <property name="top_attach">9</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <placeholder/>
