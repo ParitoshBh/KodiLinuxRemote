@@ -54,42 +54,36 @@ class Kodi():
 
     def InputBack(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Back'), auth=(self.username, self.password))
-        response = response.json()
-        # print(response)
+        self.ParseResponse(response)
 
     def InputLeft(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Left'), auth=(self.username, self.password))
-        response = response.json()
-        # print(response)
+        self.ParseResponse(response)
 
     def InputRight(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Right'), auth=(self.username, self.password))
-        response = response.json()
-        # print(response)
+        self.ParseResponse(response)
 
     def InputSelect(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Select'), auth=(self.username, self.password))
-        response = response.json()
-        # print(response)
+        self.ParseResponse(response)
 
     def InputUp(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Up'), auth=(self.username, self.password))
-        response = response.json()
-        # print(response)
+        self.ParseResponse(response)
 
     def InputDown(self):
         response = requests.get(self.url_helper.prepareUrl('Input.Down'), auth=(self.username, self.password))
-        response = response.json()
-        # print(response)
+        self.ParseResponse(response)
 
     def PlayPause(self):
-        # response = requests.get('http://192.168.1.104:9000/jsonrpc?request={"jsonrpc":"2.0","id":1,"method":"Player.PlayPause","params":{"playerid":1}}', auth=(self.username, self.password))
-        # response = requests.get(self.url_helper.prepareUrl('Player.PlayPause', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
-        # response = response.json()
-        # print(response)
-        pass
+        response = requests.get(self.url_helper.prepareUrl('Player.PlayPause', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
+        self.ParseResponse(response)
 
     def SetVolume(self, vol_type):
         response = requests.get(self.url_helper.prepareUrl('Application.SetVolume', {'name': 'volume', 'value': vol_type}), auth=(self.username, self.password))
+        self.ParseResponse(response)
+
+    def ParseResponse(self, response):
         response = response.json()
         # print(response)
