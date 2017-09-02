@@ -2,7 +2,6 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from kodi import Kodi
-from notifier import Notifier
 
 class Remote:
     ip_address = None
@@ -21,25 +20,13 @@ class Remote:
         window.set_title('KodiLinuxRemote')
         window.show()
         # Communicate with kodi
-        labelStatus = builder.get_object('labelStatus')
-        labelStatus.set_text('Connecting with Kodi...')
         kodi = Kodi(self.username, self.password, self.ip_address, self.port)
         # Alter UI based on currently playing media
-        # self.load_now_playing(kodi, builder)
-        # Create new threads
-        notifier = Notifier(kodi, labelStatus)
-        notifier.setDaemon(True)
-        # Start new Threads
-        notifier.start()
+        self.load_now_playing(kodi, builder)
         return kodi
 
     def load_now_playing(self, kodi, builder):
         currentPlaying = kodi.Handshake()
-        labelStatus = builder.get_object('labelStatus')
-        if currentPlaying:
-            labelStatus.set_text(currentPlaying)
-        else:
-            labelStatus.set_text('Unable to connect with Kodi')
         self.toggle_playback_button(builder, currentPlaying)
 
     def toggle_playback_button(self, builder, currentPlaying):
