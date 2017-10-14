@@ -66,7 +66,7 @@ class EventHandler:
         pass
 
     def onMediaNextClicked(self, button):
-        pass
+        self.kodi.Next()
 
     def onMediaForwardClicked(self, button):
         pass

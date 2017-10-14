@@ -101,6 +101,13 @@ class Kodi():
         self.parent_params = {}
         self.ParseResponse(response)
 
+    def Next(self):
+        parent_params = self.url_helper.prepare_param(self.parent_params, {'name': 'playerid', 'value': self.player_id})
+        parent_params = self.url_helper.prepare_param(self.parent_params, {'name': 'to', 'value': 'next'})
+        response = requests.get(self.url_helper.prepare_url_with_param('Player.GoTo', parent_params), auth=(self.username, self.password))
+        self.parent_params = {}
+        self.ParseResponse(response)
+
     def SetVolume(self, vol_type):
         params = self.url_helper.prepare_param(self.parent_params, {'name': 'volume', 'value': vol_type})
         response = requests.get(self.url_helper.prepare_url_with_param('Application.SetVolume', params), auth=(self.username, self.password))
