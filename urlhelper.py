@@ -8,15 +8,28 @@ class UrlHelper:
         self.ip_address = ip_address
         self.port = port
 
-    def prepareUrl(self, method_name, param = None):
-        url = '%s%s:%s%s"id":1,"method":"%s"}' % (self.protocol, self.ip_address, self.port, self.part, method_name)
+    def prepare_url_with_param(self, method_name, params):
+        url = '%s%s:%s%s"id":1,"method":"%s","params":' % (self.protocol, self.ip_address, self.port, self.part, method_name)
 
-        if param is not None:
-            if type(param['value']).__name__ == 'int':
-                url = '%s%s:%s%s"id":1,"method":"%s","params":{"%s":%s}}' % (self.protocol, self.ip_address, self.port, self.part, method_name, param['name'], param['value'])
+        for pos in params:
+            # print(params[pos])
+            if type(params[pos]['value']).__name__ == 'int':
+                # url = '%s%s:%s%s"id":1,"method":"%s","params":{"%s":%s}}' % (self.protocol, self.ip_address, self.port, self.part, method_name, params[pos]['name'], params[pos]['value'])
+                url = url + '{"' + params[pos]['name'] + '":' + params[pos]['value'] + '}'
             else:
-                url = '%s%s:%s%s"id":1,"method":"%s","params":{"%s":"%s"}}' % (self.protocol, self.ip_address, self.port, self.part, method_name, param['name'], param['value'])
+                # url = '%s%s:%s%s"id":1,"method":"%s","params":{"%s":"%s"}}' % (self.protocol, self.ip_address, self.port, self.part, method_name, params[pos]['name'], params[pos]['value'])
+                url = url + '{"' + params[pos]['name'] + '":"' + params[pos]['value'] + '"}'
+        
+        url = url + '}'
 
         # print(url)
         
         return url
+
+    def prepare_url_without_param(self, method_name):
+        url = '%s%s:%s%s"id":1,"method":"%s"}' % (self.protocol, self.ip_address, self.port, self.part, method_name)
+        return url
+
+    def prepare_param(self, parent, param):
+        parent[len(parent) + 1] = param
+        return parent

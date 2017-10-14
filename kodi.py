@@ -8,6 +8,7 @@ class Kodi():
     username = None
     password = None
     url_helper = None
+    parent_params = None
 
     def __init__(self, username, password, ip_address, port):
         self.url_helper = UrlHelper(ip_address, port)
@@ -15,11 +16,12 @@ class Kodi():
         self.port = port
         self.username = username
         self.password = password
+        self.parent_params = {}
 
     def Connect(self):
         try:
             # TODO Save settings based on response
-            response = requests.get(self.url_helper.prepareUrl('Player.GetActivePlayers'), auth=(self.username, self.password))
+            response = requests.get(self.url_helper.prepare_url_without_param('Player.GetActivePlayers'), auth=(self.username, self.password))
             settings = Settings()
             settings.Save({'ip_address' : self.ip_address, 'port' : self.port, 'username' : self.username, 'password' : self.password})
             return True
@@ -41,7 +43,7 @@ class Kodi():
             return False
 
     def GetActivePlayers(self):
-        response = requests.get(self.url_helper.prepareUrl('Player.GetActivePlayers'), auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepare_url_without_param('Player.GetActivePlayers'), auth=(self.username, self.password))
         response = response.json()['result']
         # check if something is playing
         if len(response) == 0:
@@ -50,44 +52,58 @@ class Kodi():
             return response[0]['playerid']
 
     def PlayerGetItem(self):
-        response = requests.get(self.url_helper.prepareUrl('Player.GetItem', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
+        params = self.url_helper.prepare_param(self.parent_params, {'name': 'playerid', 'value': self.player_id})
+        response = requests.get(self.url_helper.prepare_url_with_param('Player.GetItem', params), auth=(self.username, self.password))
+        self.parent_params = {}
         response = response.json()
         return response['result']['item']['label']
 
     def InputBack(self):
-        response = requests.get(self.url_helper.prepareUrl('Input.Back'), auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepare_url_without_param('Input.Back'), auth=(self.username, self.password))
         self.ParseResponse(response)
 
     def InputLeft(self):
-        response = requests.get(self.url_helper.prepareUrl('Input.Left'), auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepare_url_without_param('Input.Left'), auth=(self.username, self.password))
         self.ParseResponse(response)
 
     def InputRight(self):
-        response = requests.get(self.url_helper.prepareUrl('Input.Right'), auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepare_url_without_param('Input.Right'), auth=(self.username, self.password))
         self.ParseResponse(response)
 
     def InputSelect(self):
-        response = requests.get(self.url_helper.prepareUrl('Input.Select'), auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepare_url_without_param('Input.Select'), auth=(self.username, self.password))
         self.ParseResponse(response)
 
     def InputUp(self):
-        response = requests.get(self.url_helper.prepareUrl('Input.Up'), auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepare_url_without_param('Input.Up'), auth=(self.username, self.password))
         self.ParseResponse(response)
 
     def InputDown(self):
-        response = requests.get(self.url_helper.prepareUrl('Input.Down'), auth=(self.username, self.password))
+        response = requests.get(self.url_helper.prepare_url_without_param('Input.Down'), auth=(self.username, self.password))
         self.ParseResponse(response)
 
     def PlayPause(self):
-        response = requests.get(self.url_helper.prepareUrl('Player.PlayPause', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
+        params = self.url_helper.prepare_param(self.parent_params, {'name': 'playerid', 'value': self.player_id})
+        response = requests.get(self.url_helper.prepare_url_with_param('Player.PlayPause', params), auth=(self.username, self.password))
+        self.parent_params = {}
         self.ParseResponse(response)
 
     def Stop(self):
-        response = requests.get(self.url_helper.prepareUrl('Player.Stop', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
+        params = self.url_helper.prepare_param(self.parent_params, {'name': 'playerid', 'value': self.player_id})
+        response = requests.get(self.url_helper.prepare_url_with_param('Player.Stop', params), auth=(self.username, self.password))
+        self.parent_params = {}
+        self.ParseResponse(response)
+
+    def Previous(self):
+        params = self.url_helper.prepare_param(self.parent_params, {'name': 'playerid', 'value': self.player_id})
+        response = requests.get(self.url_helper.prepare_url_with_param('Player.GoTo', params), auth=(self.username, self.password))
+        self.parent_params = {}
         self.ParseResponse(response)
 
     def SetVolume(self, vol_type):
-        response = requests.get(self.url_helper.prepareUrl('Application.SetVolume', {'name': 'volume', 'value': vol_type}), auth=(self.username, self.password))
+        params = self.url_helper.prepare_param(self.parent_params, {'name': 'volume', 'value': vol_type})
+        response = requests.get(self.url_helper.prepare_url_with_param('Application.SetVolume', params), auth=(self.username, self.password))
+        self.parent_params = {}
         self.ParseResponse(response)
 
     def ParseResponse(self, response):

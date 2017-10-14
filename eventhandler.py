@@ -60,7 +60,7 @@ class EventHandler:
         self.kodi.PlayPause()
 
     def onMediaPreviousClicked(self, button):
-        pass
+        self.kodi.Previous()
 
     def onMediaRewindClicked(self, button):
         pass
