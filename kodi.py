@@ -95,8 +95,9 @@ class Kodi():
         self.ParseResponse(response)
 
     def Previous(self):
-        params = self.url_helper.prepare_param(self.parent_params, {'name': 'playerid', 'value': self.player_id})
-        response = requests.get(self.url_helper.prepare_url_with_param('Player.GoTo', params), auth=(self.username, self.password))
+        parent_params = self.url_helper.prepare_param(self.parent_params, {'name': 'playerid', 'value': self.player_id})
+        parent_params = self.url_helper.prepare_param(self.parent_params, {'name': 'to', 'value': 'previous'})
+        response = requests.get(self.url_helper.prepare_url_with_param('Player.GoTo', parent_params), auth=(self.username, self.password))
         self.parent_params = {}
         self.ParseResponse(response)
 
