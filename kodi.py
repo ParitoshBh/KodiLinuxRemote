@@ -82,6 +82,10 @@ class Kodi():
         response = requests.get(self.url_helper.prepareUrl('Player.PlayPause', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
         self.ParseResponse(response)
 
+    def Stop(self):
+        response = requests.get(self.url_helper.prepareUrl('Player.Stop', {'name': 'playerid', 'value': self.player_id}), auth=(self.username, self.password))
+        self.ParseResponse(response)
+
     def SetVolume(self, vol_type):
         response = requests.get(self.url_helper.prepareUrl('Application.SetVolume', {'name': 'volume', 'value': vol_type}), auth=(self.username, self.password))
         self.ParseResponse(response)
