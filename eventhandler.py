@@ -54,7 +54,7 @@ class EventHandler:
         self.kodi.InputDown()
 
     def onMediaStopClicked(self, button):
-        pass
+        self.kodi.Stop()
 
     def onMediaPlayPauseClicked(self, button):
         self.kodi.PlayPause()
