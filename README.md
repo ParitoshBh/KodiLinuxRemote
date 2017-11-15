@@ -38,3 +38,7 @@ Getting the code and running is the easiest part,
 As of now, the app is bare bones at best and now where near what the web interface does or its android counterpart. The aim is to have a solid base going and then build on it based on feature requests from community.
 
 This desktop app is being developed in the free time I have from the day job and thus there's less time for testing, enhancement, and feature implementation. And thus if you have some time to spare and are interested in seeing it grow, I encourage you to take it up for spin and file issues, feature requests [here]((https://github.com/ParitoshBh/KodiLinuxRemote/issues/new)) !
+
+## API Reference
+
+`http://192.xxx.xxx.xxx:xxxx/jsonrpc`
